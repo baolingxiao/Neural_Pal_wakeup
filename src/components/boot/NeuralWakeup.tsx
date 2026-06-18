@@ -1,12 +1,9 @@
-import { animate, motion } from 'motion/react'
+import { animate, motion, type AnimationPlaybackControls } from 'motion/react'
 import { useEffect, useRef, useState } from 'react'
 import { GlowOrb } from './GlowOrb'
 import { NeuralInterface } from './NeuralInterface'
 import { WakeupText } from './WakeupText'
 import { EASE_OUT_EXPO, TIMELINE, phaseAtTime, type WakeupPhase } from '../../motion/timing'
-
-/** Prevents StrictMode dev double-mount from restarting the sequence */
-let sequenceLock = false
 
 type NeuralWakeupProps = {
   userName?: string
@@ -25,14 +22,17 @@ export function NeuralWakeup({
   const completeRef = useRef(false)
 
   useEffect(() => {
-    if (!autoStart || sequenceLock) return
-    sequenceLock = true
+    if (!autoStart) return
 
+    let cancelled = false
+    let raf = 0
+    let morphAnimation: AnimationPlaybackControls | null = null
     const start = performance.now()
     let morphStarted = false
-    let raf = 0
 
     const tick = (now: number) => {
+      if (cancelled) return
+
       const t = (now - start) / 1000
       setElapsed(t)
       setPhase(phaseAtTime(t))
@@ -40,7 +40,7 @@ export function NeuralWakeup({
       if (t >= TIMELINE.waveBreathingEnd && t < TIMELINE.morphEnd) {
         if (!morphStarted) {
           morphStarted = true
-          animate(0, 1, {
+          morphAnimation = animate(0, 1, {
             duration: TIMELINE.morphEnd - TIMELINE.waveBreathingEnd,
             ease: EASE_OUT_EXPO,
             onUpdate: (v) => setMorphProgress(v),
@@ -59,7 +59,12 @@ export function NeuralWakeup({
     }
 
     raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
+
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(raf)
+      morphAnimation?.stop()
+    }
   }, [autoStart, onComplete])
 
   const showText = phase === 'text' || phase === 'interface'
