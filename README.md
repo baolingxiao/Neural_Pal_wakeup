@@ -9,7 +9,9 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) to watch the wakeup sequence.
+Open [http://localhost:5190](http://localhost:5190) to watch the wakeup sequence.
+
+> Default dev port is **5190** (configured in `vite.config.ts`). If it's busy, Vite will try the next available port automatically.
 
 ## Scripts
 
