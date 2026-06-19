@@ -9,8 +9,8 @@ export function Panel({ className, glow = false, children, ...props }: PanelProp
   return (
     <div
       className={cn(
-        'rounded-3xl border border-border bg-surface/80 backdrop-blur-sm',
-        glow && 'shadow-[0_0_60px_-12px_rgba(255,184,108,0.25)]',
+        'rounded-[14px] border border-border bg-surface backdrop-blur-sm',
+        glow && 'shadow-[0_0_60px_-12px_rgba(255,255,255,0.08)]',
         className,
       )}
       {...props}

@@ -16,18 +16,14 @@ export function WakeupText({
   return (
     <motion.div
       className={cn(
-        'pointer-events-none absolute inset-x-0 top-[58%] z-20 flex justify-center',
+        'pointer-events-none absolute inset-x-0 top-[72%] z-20 flex justify-center',
         className,
       )}
       initial={{ opacity: 0, y: 12 }}
-      animate={
-        visible
-          ? { opacity: 1, y: 0 }
-          : { opacity: 0, y: 12 }
-      }
+      animate={visible ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
       transition={fadeTransition}
     >
-      <p className="text-center text-4xl font-light tracking-tight text-foreground md:text-5xl">
+      <p className="text-center text-3xl font-light tracking-tight text-foreground/90 md:text-4xl">
         Hello, {name}.
       </p>
     </motion.div>

@@ -1,16 +1,17 @@
 @import 'tailwindcss';
 
 @theme {
-  --color-background: #f8f3ea;
-  --color-foreground: #3d3630;
-  --color-muted: #8a8279;
-  --color-glow: #ffd4a8;
-  --color-glow-core: #fff5eb;
-  --color-glow-warm: #ffb86c;
-  --color-surface: #f0ebe2;
-  --color-border: #e5ddd2;
+  --color-background: #050505;
+  --color-foreground: #f5f5f5;
+  --color-muted: rgba(255, 255, 255, 0.58);
+  --color-glow: rgba(255, 255, 255, 0.82);
+  --color-glow-core: #ffffff;
+  --color-glow-warm: rgba(255, 255, 255, 0.72);
+  --color-surface: rgba(255, 255, 255, 0.03);
+  --color-border: rgba(255, 255, 255, 0.1);
 
-  --font-sans: 'Inter', 'SF Pro Display', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
 *,
@@ -30,10 +31,11 @@ body {
   font-family: var(--font-sans);
   background-color: var(--color-background);
   color: var(--color-foreground);
+  color-scheme: dark;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-glow) 40%, transparent);
+  background: color-mix(in srgb, var(--color-foreground) 25%, transparent);
 }
